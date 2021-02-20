@@ -1,5 +1,6 @@
 package com.example.kindkotlin
 
+import android.graphics.Matrix
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -15,21 +16,18 @@ class MainActivity : AppCompatActivity() {
         setup()
     }
 
+    var degrees = 0f
+
     private fun setup() {
-        val clickListener = View.OnClickListener { v ->
-            when (v.id) {
-                R.id.button1 -> {
-                    customCardView.setProfileImage(R.drawable.ic_launcher_background)
-                }
-                R.id.button2 -> {
-                    customCardView.setProfileImage(R.drawable.ic_launcher_foreground)
-                }
+        rotateButton.setOnClickListener {
+            val matrix = Matrix()
+            degrees += 45.0f
+            if (degrees >= 360f) {
+                degrees = 0f
             }
+            matrix.postRotate(degrees, 50f, 50f)
+            targetImageView.imageMatrix = matrix
         }
-        button1.setOnClickListener(clickListener)
-        button2.setOnClickListener(clickListener)
-        customCardView.setName("오주렁")
-        customCardView.setPhone("01033334444")
     }
 
     private fun debug(msg: String) {

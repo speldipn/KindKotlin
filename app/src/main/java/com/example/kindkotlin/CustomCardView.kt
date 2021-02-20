@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.custom_card_item.view.*
 
 class CustomCardView : LinearLayout {
@@ -27,8 +28,6 @@ class CustomCardView : LinearLayout {
    fun setPhone(phone: String) { itemView.phoneTextView.text = phone }
 
    fun setProfileImage(resId: Int) {
-       itemView.profileImageView.setImageDrawable(context.getDrawable(resId))
+       itemView.profileImageView.setImageDrawable(ContextCompat.getDrawable(context, resId))
    }
-
-
 }
