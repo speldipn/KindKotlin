@@ -3,7 +3,6 @@ package com.example.kindkotlin
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,22 +18,15 @@ class MainActivity : AppCompatActivity() {
         setup()
     }
 
-
     private fun setup() {
         supportFragmentManager.beginTransaction()
             .add(R.id.container, fragments[0])
             .commit()
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.homeTab -> {
-                    selectFragment(0)
-                }
-                R.id.userTab -> {
-                    selectFragment(1)
-                }
-                R.id.settingTab -> {
-                    selectFragment(2)
-                }
+                R.id.homeTab -> { selectFragment(0) }
+                R.id.userTab -> { selectFragment(1) }
+                R.id.settingTab -> { selectFragment(2) }
             }
             return@setOnNavigationItemSelectedListener true
         }
@@ -42,12 +34,9 @@ class MainActivity : AppCompatActivity() {
 
     fun selectFragment(index: Int) {
         when (index) {
-            0 -> supportFragmentManager.beginTransaction().replace(R.id.container, fragments[0])
-                .commit()
-            1 -> supportFragmentManager.beginTransaction().replace(R.id.container, fragments[1])
-                .commit()
-            2 -> supportFragmentManager.beginTransaction().replace(R.id.container, fragments[2])
-                .commit()
+            0 -> supportFragmentManager.beginTransaction().replace(R.id.container, fragments[0]).commit()
+            1 -> supportFragmentManager.beginTransaction().replace(R.id.container, fragments[1]).commit()
+            2 -> supportFragmentManager.beginTransaction().replace(R.id.container, fragments[2]).commit()
         }
     }
 
