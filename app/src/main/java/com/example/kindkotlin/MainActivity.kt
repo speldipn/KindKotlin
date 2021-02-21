@@ -3,6 +3,8 @@ package com.example.kindkotlin
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -22,21 +24,52 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .add(R.id.container, fragments[0])
             .commit()
-        bottomNavigationView.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.homeTab -> { selectFragment(0) }
-                R.id.userTab -> { selectFragment(1) }
-                R.id.settingTab -> { selectFragment(2) }
+
+        setSupportActionBar(toolBar)
+
+        val toggle = ActionBarDrawerToggle(
+            this,
+            drawerLayout,
+            toolBar,
+            R.string.drawer_open,
+            R.string.drawer_close
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        navigationView.setNavigationItemSelectedListener { v ->
+            when(v.itemId) {
+                R.id.item1 -> selectFragment(0)
+                R.id.item2 -> selectFragment(1)
+                R.id.item3 -> selectFragment(2)
             }
-            return@setOnNavigationItemSelectedListener true
+            drawerLayout.closeDrawer(GravityCompat.START)
+           return@setNavigationItemSelectedListener true
         }
     }
 
-    fun selectFragment(index: Int) {
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    private fun selectFragment(index: Int) {
         when (index) {
-            0 -> supportFragmentManager.beginTransaction().replace(R.id.container, fragments[0]).commit()
-            1 -> supportFragmentManager.beginTransaction().replace(R.id.container, fragments[1]).commit()
-            2 -> supportFragmentManager.beginTransaction().replace(R.id.container, fragments[2]).commit()
+            0 -> {
+                toolBar.title = "Home"
+                supportFragmentManager.beginTransaction().replace(R.id.container, fragments[0]).commit()
+            }
+            1 -> {
+                toolBar.title = "User"
+                supportFragmentManager.beginTransaction().replace(R.id.container, fragments[1]).commit()
+            }
+            2 -> {
+                toolBar.title ="Setting"
+                supportFragmentManager.beginTransaction().replace(R.id.container, fragments[2]).commit()
+            }
         }
     }
 
