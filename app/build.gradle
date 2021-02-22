@@ -47,4 +47,7 @@ dependencies {
 
     // fragment container view
     implementation "androidx.fragment:fragment-ktx:1.3.0"
+
+    // circle indicator for viewpager
+    implementation 'me.relex:circleindicator:2.1.4'
 }
