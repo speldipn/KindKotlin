@@ -39,6 +39,7 @@ class PagerActivity : AppCompatActivity() {
 
         customPagerAdapter = CustomPagerAdapter()
         viewPager.adapter = customPagerAdapter
+        viewPager.offscreenPageLimit = 3
         tabLayout.setupWithViewPager(viewPager)
     }
 
